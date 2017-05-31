@@ -1,0 +1,114 @@
+<h2>Общая информация о заказе</h2>
+<table>
+  <tr>
+    <td>ФИО клиента</td>
+    <td><%= @order_info['CLIENT'] %></td>
+  </tr>
+  <tr>
+    <td>Номер документа</td>
+    <td><%= @order_info['DOCUMENT'] %></td>
+  </tr>
+  <tr>
+    <td>Дата заказа</td>
+    <td><%= @order_info['ORDER_DATE'].strftime("%d-%m-%Y") %></td>
+  </tr>
+  <tr>
+    <td>Город отправления</td>
+    <td><%= @flights_to.first['DEPARTURE_CITY'] %>(<%= @flights_to.first['DEPARTURE_COUNTRY'] %>)</td>
+  </tr>
+  <tr>
+    <td>Пункт назначения</td>
+    <td><%= @flights_to.last['ARRIVAL_CITY'] %>(<%= @flights_to.last['ARRIVAL_COUNTRY'] %>)</td>
+  </tr>
+  <tr>
+    <td>Время отправления</td>
+    <td><%= @flights_to.first['DEPARTURE_DATE'].strftime("%d-%m-%Y %T") %></td>
+  </tr>
+  <tr>
+    <td>Время прибытия</td>
+    <td><%= @flights_to.last['ARRIVAL_DATE'].strftime("%d-%m-%Y %T") %></td>
+  </tr>
+  <tr>
+    <td>Пересадки</td>
+    <td><%= (@flights_to.last['POSITION'] == 1) ?'нет' : @flights_to.last['POSITION'] - 1 %></td>
+  </tr>
+  <% if @flights_from.length > 0 %>
+    <tr>
+      <td colspan="2">Обратный путь</td>
+    </tr>
+    <tr>
+      <td>Время отправления</td>
+      <td><%= @flights_from.first['DEPARTURE_DATE'].strftime("%d-%m-%Y %T") %></td>
+    </tr>
+    <tr>
+      <td>Время прибытия</td>
+      <td><%= @flights_from.last['ARRIVAL_DATE'].strftime("%d-%m-%Y %T") %></td>
+    </tr>
+    <tr>
+      <td>Пересадки</td>
+      <td><%= (@flights_from.last['POSITION'] == 1) ?'нет' : @flights_from.last['POSITION'] - 1 %></td>
+    </tr>
+  <% end %>
+</table>
+
+<h2>Подробная информация о маршруте</h2>
+<table class="routes">
+  <tr>
+    <th>Код рейса</th>
+    <th>Авиаперевозчик</th>
+    <th>Время отправления</th>
+    <th>Аэропорт отправления</th>
+    <th>Город отправления</th>
+    <th>Страна отправления</th>
+    <th>Время прибытия</th>
+    <th>Аэропорт прибытия</th>
+    <th>Город прибытия</th>
+    <th>Страна прибытия</th>
+  </tr>
+  <% @flights_to.each do |flight| %>
+    <tr>
+      <td><%= flight['CODE'] %></td>
+      <td><%= flight['AIRLINE'] %></td>
+      <td><%= flight['DEPARTURE_DATE'].strftime("%d-%m-%Y %T") %></td>
+      <td><%= flight['DEPARTURE_AIRPORT'] %></td>
+      <td><%= flight['DEPARTURE_CITY'] %></td>
+      <td><%= flight['DEPARTURE_COUNTRY'] %></td>
+      <td><%= flight['ARRIVAL_DATE'].strftime("%d-%m-%Y %T") %></td>
+      <td><%= flight['ARRIVAL_AIRPORT'] %></td>
+      <td><%= flight['ARRIVAL_CITY'] %></td>
+      <td><%= flight['ARRIVAL_COUNTRY'] %></td>
+    </tr>
+  <% end %>
+</table>
+
+<% if @flights_from.length > 0 %>
+    <h2>Подробная информация по обратному пути</h2>
+    <table class="routes" style="margin-bottom: 50px;">
+      <tr>
+        <th>Код рейса</th>
+        <th>Авиаперевозчик</th>
+        <th>Время отправления</th>
+        <th>Аэропорт отправления</th>
+        <th>Город отправления</th>
+        <th>Страна отправления</th>
+        <th>Время прибытия</th>
+        <th>Аэропорт прибытия</th>
+        <th>Город прибытия</th>
+        <th>Страна прибытия</th>
+      </tr>
+      <% @flights_from.each do |flight| %>
+          <tr>
+            <td><%= flight['CODE'] %></td>
+            <td><%= flight['AIRLINE'] %></td>
+            <td><%= flight['DEPARTURE_DATE'].strftime("%d-%m-%Y %T") %></td>
+            <td><%= flight['DEPARTURE_AIRPORT'] %></td>
+            <td><%= flight['DEPARTURE_CITY'] %></td>
+            <td><%= flight['DEPARTURE_COUNTRY'] %></td>
+            <td><%= flight['ARRIVAL_DATE'].strftime("%d-%m-%Y %T") %></td>
+            <td><%= flight['ARRIVAL_AIRPORT'] %></td>
+            <td><%= flight['ARRIVAL_CITY'] %></td>
+            <td><%= flight['ARRIVAL_COUNTRY'] %></td>
+          </tr>
+      <% end %>
+    </table>
+<% end %>

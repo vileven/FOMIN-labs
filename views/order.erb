@@ -1,0 +1,88 @@
+
+<form  name="user-create" class="fomin-form" id="order-form">
+  <div class="form-group">
+    <label for="departure_date">Дата заказа</label>
+    <input id="departure_date" name="order_date" type="date" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="client_form_id">Клиент</label>
+    <select id="client_form_id" size="1" class="form-control" name="client">
+      <% @users.each do |user| %>
+        <option><%= "#{user["LAST_NAME"]} #{user["FIRST_NAME"]} #{user["MIDDLE_NAME"]}" %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="arrival_date">Дата вылета</label>
+    <input type="date" name="arrival_date" class="form-control" id="arrival_date">
+  </div>
+
+  <div class="form-group">
+    <label for="departure_city">Город вылета</label>
+    <select id="departure_city" size="1" class="form-control" name="departure_city">
+      <% @cities.each do |city| %>
+          <option><%= city["NAME"] %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="arrival_city">Город прилета</label>
+    <select id="arrival_city" size="1" class="form-control" name="arrival_city">
+      <% @cities.each do |city| %>
+          <option><%= city["NAME"] %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="return_date">Обратный перелёт (опционально)</label>
+    <input type="date" id="return_date" class="form-control" name="return_date">
+  </div>
+
+  <div class="form-group">
+    <div></div>
+    <input type="submit" name="commit" value="Показать маршруты"
+           class="btn btn-submit">
+  </div>
+
+</form>
+
+
+<form id="form-flights" class="fomin-form" method="post" action="/createOrder">
+  <table id="flights_to" class="hidden">
+    <caption>Выбор маршрута прямого перелета</caption>
+    <tr class="flights__headers">
+      <th class="flights__item">✓</th>
+      <th class="flights__item">Путь</th>
+      <th class="flights__item">Аэропорт отправления</th>
+      <th class="flights__item">Аэропорт прибытия</th>
+      <th class="flights__item">Время прибытия</th>
+      <th class="flights__item">Пересадки</th>
+    </tr>
+  </table>
+
+  <table id="flights_from" class="hidden">
+    <caption>Выбор маршрута обратнного перелета</caption>
+    <tr class="flights__headers">
+      <th class="flights__item">✓</th>
+      <th class="flights__item">Путь</th>
+      <th class="flights__item">Аэропорт отправления</th>
+      <th class="flights__item">Аэропорт прибытия</th>
+      <th class="flights__item">Время прибытия</th>
+      <th class="flights__item">Пересадки</th>
+    </tr>
+  </table>
+
+
+
+  <div id="order_submit" class="form-group hidden" style="margin-top: 20px;">
+    <div></div>
+    <input type="submit" name="commit" value="Сделать заказ"
+           class="btn btn-submit">
+  </div>
+</form>
+
+<script src="js/order.js" type="text/javascript"></script>

@@ -1,0 +1,47 @@
+<div class="message <% if @flash[:success] %>
+                        success-message
+                    <% end %>
+                    <% if @flash[:error] %>
+                        error-message
+                    <% end %>"
+     <% unless @flash[:success] or flash[:error]%>
+        hidden
+     <% end %>
+>
+  <% if @flash[:success] %>
+    <%= @flash[:success] %>
+  <% end %>
+  <% if @flash[:error] %>
+      <%= @flash[:error] %>
+  <% end %>
+</div>
+
+<form method="post" name="user-create" action="/client" class="fomin-form">
+
+  <div class="form-group">
+    <label for="client_last_name">Фамилия</label>
+    <input type="text" class="form-control" name="last_name" id="client_last_name">
+  </div>
+
+  <div class="form-group">
+    <label for="client_first_name">Имя</label>
+    <input type="text" class="form-control" name="first_name" id="client_first_name">
+  </div>
+
+  <div class="form-group">
+    <label for="client_middle_name">Отчество</label>
+    <input type="text" class="form-control" name="middle_name" id="client_middle_name">
+  </div>
+
+  <div class="form-group">
+    <label for="client_document">Номер пасспорта</label>
+    <input type="number" class="form-control" name="document" id="client_document">
+  </div>
+
+  <div class="form-group">
+    <div></div>
+    <input type="submit" name="commit" value="Добавить пользователя"
+           class="btn btn-submit">
+  </div>
+
+</form>
